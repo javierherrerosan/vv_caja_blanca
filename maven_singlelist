@@ -1,0 +1,1 @@
+ install:install-file -Dfile=SingleList.jar -DgroupId=com.singleList -DartifactId=SingleList -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
