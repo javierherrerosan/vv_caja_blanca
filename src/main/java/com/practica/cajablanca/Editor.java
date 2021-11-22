@@ -35,7 +35,7 @@ public class Editor {
 	 * @param linea
 	 * @return la lista correspondiente a la línea pasada como parámetro
 	 * @throws EmptyCollectionException si el editor está vacío
-	 * @throws Si                       el número de línea es incorrecta lanza
+	 * @throws IllegalArgumentException el número de línea es incorrecta lanza
 	 *                                  IllegalArgumentException
 	 */
 	public AbstractSingleLinkedListImpl<String> getLinea(int linea) throws EmptyCollectionException {
@@ -52,7 +52,7 @@ public class Editor {
 	 * Leemos un fichero de entrada con líneas de texto que cargaremos en nuestra
 	 * lista de listas "lineas".
 	 * 
-	 * @param nombre del fichero del que leemos
+	 * @param nombreFichero del fichero del que leemos
 	 */
 	public void leerFichero(String nombreFichero) {
 		File archivo = null;
