@@ -1,9 +1,13 @@
 package com.practica.cajanegra;
 
+import com.cajanegra.AbstractSingleLinkedListImpl;
 import com.cajanegra.SingleLinkedListImpl;
 import  com.practica.cajablanca.Editor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 /*
 CAMINOS:
@@ -51,11 +55,17 @@ public class TestSustituirPalabra {
     //Cambiar segunda palabra
     @Test
     @DisplayName("CAMINO A,B,C,D,E,F,H,I,E,J,K,L,M")
-    public void size2EditorSustituirPalabras(toString("Piso"),toString("Arbol")){
+    public void size2EditorSustituirPalabras(){
         
         Editor editor = new Editor();
         editor.leerFichero("Ficheros/SustituirPalabra.txt");
-        assertEquals("Casa Arbol", editor);
+        editor.sustituirPalabra("piso", "arbol");
+        AbstractSingleLinkedListImpl<String> aux = new SingleLinkedListImpl<String>();
+
+        for(int i = 1; i <= editor.size(); i++) {
+            
+        }
+        assertEquals("casa arbol", editor);
     }
 
 }
