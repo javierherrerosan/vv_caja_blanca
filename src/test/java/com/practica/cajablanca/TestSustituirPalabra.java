@@ -1,6 +1,7 @@
 package com.practica.cajanegra;
 
 import com.cajanegra.AbstractSingleLinkedListImpl;
+import com.cajanegra.EmptyCollectionException;
 import com.cajanegra.SingleLinkedListImpl;
 import  com.practica.cajablanca.Editor;
 import org.junit.jupiter.api.DisplayName;
@@ -12,16 +13,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /*
 CAMINOS:
 A,B,M
-A,B,C,D,E,J,K,L,M
+A,B,C,D,E,J,K,L,M               Inviable
 A,B,C,D,E,F,H,I,E,J,K,L,M
 A,B,C,D,E,F,G,I,E,J,K,L,M
-A,B,C,D,E,J,K,D,E,J,K,L,M
+A,B,C,D,E,J,K,D,E,J,K,L,M       Inviable
+
+Debido a que el editor tiene que tener un tamaño mayor a 0 (Nodo B), y la condición del while (Nodo E) indica
+que la línea tiene que ser mayor que 0, no es posible que se cumpla la primera condicion y a la vez se incumpla
+la segunda en la primera iteración.
 */
 /*
 public void sustituirPalabra(String palabra, String nuevaPalabra) {
         if (this.editor.size() > 0) {
         AbstractSingleLinkedListImpl<AbstractSingleLinkedListImpl<String>> nuevoEditor =
-        new SingleLinkedListImpl<AbstractSingleLinkedListImpl<String>>(); 3
+        new SingleLinkedListImpl<AbstractSingleLinkedListImpl<String>>();
         int i=1;
         do {
         AbstractSingleLinkedListImpl<String> aux = new SingleLinkedListImpl<String>();
@@ -46,26 +51,43 @@ public void sustituirPalabra(String palabra, String nuevaPalabra) {
 public class TestSustituirPalabra {
     //Editor vacío
     @Test
-    @DisplayName("CAMINO A,B,M")
-    public void sizeEditorSustituirPalabras(){
+    @DisplayName("Camino A,B,M")
+    public void test1SustituirPalabra(){
         Editor editor = new Editor();
         Editor esperado = editor;
         assertEquals(esperado, editor);
     }
     //Cambiar segunda palabra
     @Test
-    @DisplayName("CAMINO A,B,C,D,E,F,H,I,E,J,K,L,M")
-    public void size2EditorSustituirPalabras(){
+    @DisplayName("Camino A,B,C,D,E,F,H,I,E,J,K,L,M")
+    public void test2SustituirPalabra() throws EmptyCollectionException {
         
         Editor editor = new Editor();
         editor.leerFichero("Ficheros/SustituirPalabra.txt");
         editor.sustituirPalabra("piso", "arbol");
-        AbstractSingleLinkedListImpl<String> aux = new SingleLinkedListImpl<String>();
-
-        for(int i = 1; i <= editor.size(); i++) {
-            
+        String str = "";
+        for(int i = 1; i <= editor.size(); i++){
+            AbstractSingleLinkedListImpl<String> aux = new SingleLinkedListImpl<String>();
+            aux = editor.getLinea(i);
+            str += aux.toString();
         }
-        assertEquals("casa arbol", editor);
+        assertEquals("[casa, arbol]", str);
     }
+
+    @Test
+    @DisplayName("Camino A,B,C,D,E,F,G,I,E,J,K,L,M")
+    public void test3SustituirPalabra() throws EmptyCollectionException {
+        Editor editor = new Editor();
+        editor.leerFichero("Ficheros/SustituirPalabra.txt");
+        editor.sustituirPalabra("casa", "arbol");
+        String str = "";
+        for(int i = 1; i <= editor.size(); i++){
+            AbstractSingleLinkedListImpl<String> aux = new SingleLinkedListImpl<String>();
+            aux = editor.getLinea(i);
+            str += aux.toString();
+        }
+        assertEquals("[arbol, piso]", str);
+    }
+
 
 }
