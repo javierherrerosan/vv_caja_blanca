@@ -2,7 +2,6 @@ package com.practica.cajablanca;
 
 import com.cajanegra.AbstractSingleLinkedListImpl;
 import com.cajanegra.EmptyCollectionException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -109,6 +108,65 @@ public class TestsnumPalabras {
             }
 
             assertEquals(0, apariciones);
+        }
+    }
+    @ParameterizedTest
+    @CsvSource({
+            "1, 2, H"
+    })
+    public void apariciones3(int inicio, int fin, String palabra) throws EmptyCollectionException {
+        editor.leerFichero("Ficheros/numPalabras.txt");
+        AbstractSingleLinkedListImpl<String> lista;
+        if (inicio <= 0)
+            throw new IllegalArgumentException("La línea de inicio no puede ser menor o igual a cero");
+        if (fin > this.editor.size())
+            throw new IllegalArgumentException("La línea fin no puede ser mayor que el máximo de líneas");
+        int apariciones = 0;
+        if (this.editor.size() > 0){
+            while (inicio < fin) {
+                lista = this.editor.getLinea(inicio);
+                int pos = 1;
+                while (pos <= lista.size()) {
+                    String cadena = lista.getAtPos(pos);
+                    if (cadena.equals(palabra)) {
+                    apariciones++;
+                    }
+                    pos++;
+                }
+                inicio++;
+            }
+
+            assertEquals(0, apariciones);
+        }
+    }
+    @ParameterizedTest
+    @CsvSource({
+            "1, 2, Hola",
+            "1, 2, tal"
+    })
+    public void apariciones4(int inicio, int fin, String palabra) throws EmptyCollectionException {
+        editor.leerFichero("Ficheros/numPalabras.txt");
+        AbstractSingleLinkedListImpl<String> lista;
+        if (inicio <= 0)
+            throw new IllegalArgumentException("La línea de inicio no puede ser menor o igual a cero");
+        if (fin > this.editor.size())
+            throw new IllegalArgumentException("La línea fin no puede ser mayor que el máximo de líneas");
+        int apariciones = 0;
+        if (this.editor.size() > 0){
+            while (inicio <= fin) {  //CORREGIDO EL CODIGO PARA QUE CUENTE TAMBIEN LA ULTIMA LINEA
+                lista = this.editor.getLinea(inicio);
+                int pos = 1;
+                while (pos <= lista.size()) {
+                    String cadena = lista.getAtPos(pos);
+                    if (cadena.equals(palabra)) {
+                        apariciones++;
+                    }
+                    pos++;
+                }
+                inicio++;
+            }
+
+            assertEquals(1, apariciones);
         }
     }
 }
